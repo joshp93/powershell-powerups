@@ -10,6 +10,7 @@ Import-Module C:\PowerShell\Run-NpmInstallForAll.psm1  -WarningAction SilentlyCo
 Import-Module C:\PowerShell\Convert-JavaToJS.psm1  -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Merge-LatestMasterIntoThisBranch.psm1  -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Pull-NXRestAndMA.psm1 -WarningAction SilentlyContinue
+Import-Module C:\PowerShell\Get-VerseOfTheDay.psm1 -WarningAction SilentlyContinue
 
 set-alias -Name cbn -Value Get-CurrentBranchName
 set-alias -Name pbu -Value Push-CurrentBranchUpstream
@@ -18,4 +19,9 @@ set-alias -Name cbb -Value Create-BugBranch
 set-alias -Name mlm -Value Merge-LatestMasterIntoThisBranch
 Set-Alias -Name manx -Value Pull-NXRestAndMA
 
-Write-Host "Howdy, Kemosabe" -ForegroundColor DarkGreen
+$VerseOfTheDay = Get-VerseOfTheDay
+if ($VerseOfTheDay) {
+    Write-Host $VerseOfTheDay -ForegroundColor DarkGreen;
+} else {
+    Write-Host "Howdy, Kemosabe" -ForegroundColor DarkGreen
+}

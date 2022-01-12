@@ -1,9 +1,7 @@
 ﻿function Get-VerseOfTheDay {
     $ApiUrl = "https://labs.bible.org/api/?passage=votd&formatting=plain"
     $ApiAnswer = Invoke-WebRequest $ApiUrl
-    
-    #output quote if we have one :)
-    Write-Host $ApiAnswer -ForegroundColor Green
+    return $ApiAnswer
 }
 
 Export-ModuleMember -Function Get-VerseOfTheDay
