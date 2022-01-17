@@ -7,7 +7,7 @@
 
         Write-Host "Pulling latest ma" -ForegroundColor DarkGreen
         cd C:\apps\nx-my-account-api
-        git pull;
+        git pull
     } else {
         return
     }
