@@ -6,6 +6,9 @@ function Git-AddCommitWithCardIdAndMessage {
     $IsGitRepo = Check-LocationIsGitRepo
     if ($IsGitRepo) {
         $BranchName = Get-CurrentBranchName
+        if ($BranchName -eq "master") {
+            Throw "You are on master you berk"
+        }
         $CardName = $BranchName.Split('/')[1].ToUpper()
         $Message = "${CardName} ${Message}"
         Write-Host "Committing to ${BranchName} with message: ${Message}" -ForegroundColor DarkGreen
