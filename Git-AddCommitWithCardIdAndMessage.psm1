@@ -9,24 +9,27 @@ function Git-AddCommitWithCardIdAndMessage {
         if ($BranchName -eq "master") {
             Write-Host "You are on the master you berk" -ForegroundColor Red
             Write-Host "Let's create a new branch together..." -ForegroundColor DarkGreen
-            $BranchType = Read-Host "Is it a feature or a bug? [f] feature | [b] bug | [default/other] something else" -ForegroundColor DarkGreen
+            $BranchType = Read-Host "Is it a feature or a bug? [f] feature | [b] bug | [default/other] something else"
             if ($BranchType -eq "f" -or $BranchType -eq "b") {
-                $CardName = Read-Host "What's the card name?" -ForegroundColor DarkGreen
+                $CardName = Read-Host "What's the card name"
                 if ($BranchType -eq "f") {
-                    if (Check-BranchExists "feature/${CardName}") {
+                    $BranchName = "feature/${CardName}"
+                    if (Check-BranchExists $BranchName) {
                         Write-Host "That branch already exists, you'd better check it manually." -ForegroundColor Red
                         return
                     }
                     cfb $CardName
                 } else {
-                    if (Check-BranchExists "fix/${CardName}") {
+                    $BranchName = "fix/${CardName}"
+                    if (Check-BranchExists $BranchName) {
                         Write-Host "That branch already exists, you'd better check it manually." -ForegroundColor Red
                         return
                     }
                     cbb $CardName
                 }
+                
             } else {
-                throw "Whoops, try again"
+                throw "Whoops, try again..."
             }
         }
         $CardName = $BranchName.Split('/')[1].ToUpper()
