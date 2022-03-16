@@ -7,7 +7,7 @@ Import-Module C:\PowerShell\Create-FeatureBranch.psm1 -WarningAction SilentlyCon
 Import-Module C:\PowerShell\Create-BugBranch.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Pull-AllGitRepos.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Run-NpmInstallForAll.psm1  -WarningAction SilentlyContinue
-Import-Module C:\PowerShell\Convert-JavaToJS.psm1  -WarningAction SilentlyContinue
+Import-Module C:\PowerShell\Convert-JavaToTS.psm1  -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Merge-LatestMasterIntoThisBranch.psm1  -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Pull-NXRestAndMA.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Get-VerseOfTheDay.psm1 -WarningAction SilentlyContinue
