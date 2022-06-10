@@ -7,8 +7,9 @@
         if (Test-Path -Path $gitPath) {
             cd $_.FullName
             $branch = Get-CurrentBranchName
-            if ($branch -ne "master") {
-                git checkout master
+            $RootBranchName = Get-RootBranchName
+            if ($branch -ne $RootBranchName) {
+                git checkout $RootBranchName
             }
             git pull
         }

@@ -3,12 +3,14 @@
     if ($IsGitRepo) {
         Write-Host "Pulling latest nx-rest" -ForegroundColor DarkGreen
         cd C:\apps\nx-rest-api
-        git ch master
+        $RootBranchName = Get-RootBranchName
+        git ch $RootBranchName
         git pull
 
         Write-Host "Pulling latest ma" -ForegroundColor DarkGreen
         cd C:\apps\nx-my-account-api
-        git ch master
+        $RootBranchName = Get-RootBranchName
+        git ch $RootBranchName
         git pull
     } else {
         return

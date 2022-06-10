@@ -6,8 +6,9 @@ function Git-AddCommitWithCardIdAndMessage {
     $IsGitRepo = Check-LocationIsGitRepo
     if ($IsGitRepo) {
         $BranchName = Get-CurrentBranchName
-        if ($BranchName -eq "master") {
-            Write-Host "You are on the master you berk" -ForegroundColor Red
+        $RootBranchName = Get-RootBranchName
+        if ($BranchName -eq $RootBranchName) {
+            Write-Host "You are on the ${RootBranchName} you berk" -ForegroundColor Red
             Write-Host "Let's create a new branch together..." -ForegroundColor DarkGreen
             $BranchType = Read-Host "Is it a feature or a bug? [f] feature | [b] bug | [default/other] something else"
             if ($BranchType -eq "f" -or $BranchType -eq "b") {
