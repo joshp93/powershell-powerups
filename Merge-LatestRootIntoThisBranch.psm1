@@ -1,4 +1,4 @@
-﻿function Merge-LatestRootBranchIntoThisBranch {
+﻿function Merge-LatestRootIntoThisBranch {
     Param(
      [parameter(Mandatory=$false)]
      [boolean] $PushChanges
@@ -21,4 +21,4 @@
     }
 }
 
-Export-ModuleMember -Function Merge-LatestRootBranchIntoThisBranch
+Export-ModuleMember -Function Merge-LatestRootIntoThisBranch
