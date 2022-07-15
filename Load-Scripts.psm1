@@ -23,6 +23,11 @@ set-alias -Name mlr -Value Merge-LatestRootIntoThisBranch
 Set-Alias -Name manx -Value Pull-NXRestAndMA
 set-alias -Name gacm -Value Git-AddCommitWithCardIdAndMessage
 Set-Alias -Name cm -Value Git-CheckoutRoot
+function fmlrp { Merge-LatestRootIntoThisBranch $true }
+set-alias -Name mlrp -Value fmlrp
+
+function fcmp { Git-CheckoutRoot $true }
+Set-Alias -Name cmp -Value fcmp
 
 $VerseOfTheDay = Get-VerseOfTheDay
 if ($VerseOfTheDay) {
