@@ -14,6 +14,7 @@ Import-Module C:\PowerShell\Get-VerseOfTheDay.psm1 -WarningAction SilentlyContin
 Import-Module C:\PowerShell\Git-AddCommitWithCardIdAndMessage.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Get-RootBranchName.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Git-CheckoutRoot.psm1 -WarningAction SilentlyContinue
+Import-Module C:\PowerShell\Remove-OldLocalBranches.psm1 -WarningAction SilentlyContinue
 
 set-alias -Name cbn -Value Get-CurrentBranchName
 set-alias -Name pbu -Value Push-CurrentBranchUpstream
@@ -28,10 +29,3 @@ set-alias -Name mlrp -Value fmlrp
 
 function fcmp { Git-CheckoutRoot $true }
 Set-Alias -Name cmp -Value fcmp
-
-$VerseOfTheDay = Get-VerseOfTheDay
-if ($VerseOfTheDay) {
-    Write-Host $VerseOfTheDay -ForegroundColor DarkGreen
-} else {
-    Write-Host "Howdy, Kemosabe" -ForegroundColor DarkGreen
-}
