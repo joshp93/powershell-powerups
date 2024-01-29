@@ -3,3 +3,4 @@ nircmd.exe
 nircmdc.exe
 NirCmd.chm
 NX Password Reset.ps1
+Set-PasswordRemotely.ps1
