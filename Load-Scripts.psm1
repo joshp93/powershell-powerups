@@ -15,6 +15,8 @@ Import-Module C:\PowerShell\Git-AddCommitWithCardIdAndMessage.psm1 -WarningActio
 Import-Module C:\PowerShell\Get-RootBranchName.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Git-CheckoutRoot.psm1 -WarningAction SilentlyContinue
 Import-Module C:\PowerShell\Remove-OldLocalBranches.psm1 -WarningAction SilentlyContinue
+Import-Module C:\PowerShell\Get-Settings.psm1 -WarningAction SilentlyContinue
+Import-Module C:\PowerShell\Set-Settings.psm1 -WarningAction SilentlyContinue
 
 set-alias -Name cbn -Value Get-CurrentBranchName
 set-alias -Name pbu -Value Push-CurrentBranchUpstream
