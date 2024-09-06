@@ -1,3 +1,39 @@
+function Test-ConventionalCommit {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Message,
+        [Parameter(Mandatory = $true)]
+        [string[]]$Prefixes,
+        [Parameter(Mandatory = $true)]
+        [string[]]$PrefixesJoined
+    )
+    $Pattern = "^(?:$($PrefixesJoined))"
+    return !($Message -notmatch $Pattern)
+}
+
+function Check-ConventionalCommit {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Message
+    )
+    [string[]]$Prefixes = @("build:", "ci:", "docs:", "feat:", "fix:", "perf:", "refactor:", "style:", "test:")
+    $PrefixesJoined = $Prefixes -join "|"
+    if (Test-ConventionalCommit -Message $Message -Prefixes $Prefixes -PrefixesJoined $PrefixesJoined) {
+        return $Message        
+    } else {
+        Write-Host "Foolish hobbit! Your commit doesn't follow conventional commit standards" -ForegroundColor Red
+        $PrefixesJoined = $PrefixesJoined.Replace(":", "")
+        $Prefix = (Read-Host "Please specify what this is (${PrefixesJoined})").Trim().Replace(":", "")
+        $NewMessage = "${Prefix}: $Message"
+        if (Test-ConventionalCommit -Message $NewMessage -Prefixes $Prefixes -PrefixesJoined $PrefixesJoined) {
+            return $NewMessage
+        } else {
+            return Check-ConventionalCommit $Message
+        }
+    }
+}
+
+
 function Git-AddCommitWithCardIdAndMessage {
     Param(
         [parameter(Mandatory = $true)]
@@ -20,7 +56,8 @@ function Git-AddCommitWithCardIdAndMessage {
                         return
                     }
                     cfb $CardName
-                } else {
+                }
+                else {
                     $BranchName = "fix/${CardName}"
                     if (Check-BranchExists $BranchName) {
                         Write-Host "That branch already exists, you'd better check it manually." -ForegroundColor Red
@@ -29,15 +66,22 @@ function Git-AddCommitWithCardIdAndMessage {
                     cbb $CardName
                 }
                 
-            } else {
+            }
+            else {
                 throw "Whoops, try again..."
             }
         }
         $CardName = $BranchName.Split('/')[1].ToUpper()
         $Message = "${CardName} ${Message}"
-        Write-Host "Committing to ${BranchName} with message: ${Message}" -ForegroundColor DarkGreen
+
+        $Settings = Get-Settings
+        if ($Settings -and $Settings.enforceAngularConventionalCommit) {
+            $Message = Check-ConventionalCommit $Message
+        }
+        Write-Host "Committing to ${BranchName} with message - '${Message}'" -ForegroundColor DarkGreen
         git ac -m $Message
-    } else {
+    }
+    else {
         return
     }
 }
