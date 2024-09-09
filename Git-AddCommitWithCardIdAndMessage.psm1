@@ -3,36 +3,34 @@ function Test-ConventionalCommit {
         [Parameter(Mandatory = $true)]
         [string]$Message,
         [Parameter(Mandatory = $true)]
-        [string[]]$Prefixes,
-        [Parameter(Mandatory = $true)]
-        [string[]]$PrefixesJoined
+        [string[]]$Prefixes
     )
     $Pattern = "^(?:$($PrefixesJoined))"
-    return !($Message -notmatch $Pattern)
+    return ($Message -match $Pattern)
 }
 
 function Check-ConventionalCommit {
     param (
         [Parameter(Mandatory = $true)]
-        [string]$Message
+        [string]$Message,
+        [Parameter(Mandatory = $true)]
+        [string[]]$Prefixes
     )
-    [string[]]$Prefixes = @("build:", "ci:", "docs:", "feat:", "fix:", "perf:", "refactor:", "style:", "test:")
-    $PrefixesJoined = $Prefixes -join "|"
-    if (Test-ConventionalCommit -Message $Message -Prefixes $Prefixes -PrefixesJoined $PrefixesJoined) {
-        return $Message        
-    } else {
+    if (Test-ConventionalCommit -Message $Message -Prefixes $Prefixes) {
+        return "${Message.Split(":")[0]}: "   
+    }
+    else {
         Write-Host "Foolish hobbit! Your commit doesn't follow conventional commit standards" -ForegroundColor Red
-        $PrefixesJoined = $PrefixesJoined.Replace(":", "")
-        $Prefix = (Read-Host "Please specify what this is (${PrefixesJoined})").Trim().Replace(":", "")
+        $Prefix = (Read-Host "Please specify what this is (${Prefixes})").Trim().Replace(":", "")
         $NewMessage = "${Prefix}: $Message"
-        if (Test-ConventionalCommit -Message $NewMessage -Prefixes $Prefixes -PrefixesJoined $PrefixesJoined) {
-            return $NewMessage
-        } else {
+        if (Test-ConventionalCommit -Message $NewMessage -Prefixes $Prefixes) {
+            return "${Prefix}: "
+        }
+        else {
             return Check-ConventionalCommit $Message
         }
     }
 }
-
 
 function Git-AddCommitWithCardIdAndMessage {
     Param(
@@ -72,12 +70,22 @@ function Git-AddCommitWithCardIdAndMessage {
             }
         }
         $CardName = $BranchName.Split('/')[1].ToUpper()
-        $Message = "${CardName} ${Message}"
-
+        $Prefix = ""
         $Settings = Get-Settings
         if ($Settings -and $Settings.enforceAngularConventionalCommit) {
-            $Message = Check-ConventionalCommit $Message
+            [string[]]$Prefixes = "build:|ci:|docs:|feat:|fix:|perf:|refactor:|style:|test:"
+            $Result = Test-ConventionalCommit -Message $Message -Prefixes $Prefixes
+            if ($Result -ne $true) {
+                $Prefix = Check-ConventionalCommit $Message -Prefixes $Prefixes
+            }
+            else {
+                $PrefixAndMessage = $Message.Split(":")
+                $PrefixAndMessage
+                $Prefix = $PrefixAndMessage[0].Trim() + ": "
+                $Message = $PrefixAndMessage[1].Trim()
+            }
         }
+        $Message = "${Prefix}${CardName} ${Message}"
         Write-Host "Committing to ${BranchName} with message - '${Message}'" -ForegroundColor DarkGreen
         git ac -m $Message
     }
