@@ -3,9 +3,9 @@ function Test-ConventionalCommit {
         [Parameter(Mandatory = $true)]
         [string]$Message,
         [Parameter(Mandatory = $true)]
-        [string[]]$Prefixes
+        [string]$Prefixes
     )
-    $Pattern = "^(?:$($PrefixesJoined))"
+    $Pattern = "^(?:$Prefixes)"
     return ($Message -match $Pattern)
 }
 
@@ -14,7 +14,7 @@ function Check-ConventionalCommit {
         [Parameter(Mandatory = $true)]
         [string]$Message,
         [Parameter(Mandatory = $true)]
-        [string[]]$Prefixes
+        [string]$Prefixes
     )
     if (Test-ConventionalCommit -Message $Message -Prefixes $Prefixes) {
         return "${Message.Split(":")[0]}: "   
@@ -73,7 +73,7 @@ function Git-AddCommitWithCardIdAndMessage {
         $Prefix = ""
         $Settings = Get-Settings
         if ($Settings -and $Settings.enforceAngularConventionalCommit) {
-            [string[]]$Prefixes = "build:|ci:|docs:|feat:|fix:|perf:|refactor:|style:|test:"
+            $Prefixes = "build:|ci:|docs:|feat:|fix:|perf:|refactor:|style:|test:"
             $Result = Test-ConventionalCommit -Message $Message -Prefixes $Prefixes
             if ($Result -ne $true) {
                 $Prefix = Check-ConventionalCommit $Message -Prefixes $Prefixes
