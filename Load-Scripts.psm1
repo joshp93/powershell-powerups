@@ -17,4 +17,5 @@ Import-Module $PSScriptRoot\Remove-OldLocalBranches.psm1 -WarningAction Silently
 Import-Module $PSScriptRoot\Get-Settings.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-Settings.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Npm-RunScript.psm1 -WarningAction SilentlyContinue
+Import-Module $PSScriptRoot\Pnpm-RunScript.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-CustomAliases.psm1
