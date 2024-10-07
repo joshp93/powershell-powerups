@@ -1,4 +1,6 @@
-﻿Import-Module posh-git
+﻿Write-Host "Loading PowerShell Powerup modules..." -ForegroundColor Green
+
+Import-Module posh-git
 Import-Module $PSScriptRoot\Check-LocationIsGitRepo.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Get-CurrentBranchName.psm1
 Import-Module $PSScriptRoot\Check-BranchExists.psm1 -WarningAction SilentlyContinue
