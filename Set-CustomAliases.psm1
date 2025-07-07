@@ -16,3 +16,6 @@ Set-Alias -Name cmp -Value fcmp
 
 function fprbt { pnpm run build:test; pnpm run test }
 Set-Alias -Name prbt -Value fprbt
+
+function fnrbt { npm run build:test; npm run test }
+Set-Alias -Name nrbt -Value fnrbt
