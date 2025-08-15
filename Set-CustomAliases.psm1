@@ -7,6 +7,7 @@ set-alias -Name gacm -Value Git-AddCommitWithCardIdAndMessage
 Set-Alias -Name cm -Value Git-CheckoutRoot
 Set-Alias -Name nr -Value Npm-RunScript
 Set-Alias -Name pr -Value Pnpm-RunScript
+Set-Alias -Name go -Value Invoke-GoTo
 
 function fmlrp { Merge-LatestRootIntoThisBranch $true }
 set-alias -Name mlrp -Value fmlrp
