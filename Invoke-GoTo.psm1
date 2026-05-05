@@ -15,7 +15,7 @@ function Invoke-GoTo {
   # Check for exact match first
   $exactMatch = $allDirectories | Where-Object { $_.Name -eq $Path }
   if ($exactMatch) {
-    Set-Location $exactMatch.FullName
+    Set-LocationWithFnm $exactMatch.FullName
     Get-ChildItem
     return
   }
@@ -28,7 +28,7 @@ function Invoke-GoTo {
   if ($partialMatches.Count -eq 0) {
     # No matches found, try literal path as fallback
     try {
-      Set-Location $Path
+      Set-LocationWithFnm $Path
       Get-ChildItem
     }
     catch {
@@ -37,7 +37,7 @@ function Invoke-GoTo {
   }
   elseif ($partialMatches.Count -eq 1) {
     # Single partial match - go to it directly
-    Set-Location $partialMatches[0].FullName
+    Set-LocationWithFnm $partialMatches[0].FullName
     Get-ChildItem
   }
   else {
@@ -60,7 +60,7 @@ function Invoke-GoTo {
     try {
       $index = [int]$selection - 1
       if ($index -ge 0 -and $index -lt $partialMatches.Count) {
-        Set-Location $partialMatches[$index].FullName
+        Set-LocationWithFnm $partialMatches[$index].FullName
         Get-ChildItem
       }
       else {

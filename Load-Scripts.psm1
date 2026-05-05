@@ -1,4 +1,11 @@
-﻿Write-Host "Loading PowerShell Powerup modules..." -ForegroundColor Green
+﻿
+if (Get-Command fnm -ErrorAction SilentlyContinue) {
+    Write-Host "Loading fnm..." -ForegroundColor Green
+    fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+}
+
+
+Write-Host "Loading PowerShell Powerup modules..." -ForegroundColor Green
 
 Import-Module posh-git
 Import-Module $PSScriptRoot\Check-LocationIsGitRepo.psm1 -WarningAction SilentlyContinue
@@ -20,5 +27,6 @@ Import-Module $PSScriptRoot\Get-Settings.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-Settings.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Npm-RunScript.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Pnpm-RunScript.psm1 -WarningAction SilentlyContinue
+Import-Module $PSScriptRoot\Set-LocationWithFnm.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Invoke-GoTo.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-CustomAliases.psm1
