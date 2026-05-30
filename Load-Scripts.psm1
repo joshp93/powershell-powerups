@@ -1,4 +1,5 @@
-﻿Write-Host "Loading PowerShell Powerup modules..." -ForegroundColor Green
+﻿oh-my-posh init pwsh --config https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/patriksvensson.omp.json | Invoke-Expression
+Write-Host "Loading PowerShell Powerup modules..." -ForegroundColor Green
 
 Import-Module posh-git
 Import-Module $PSScriptRoot\Check-LocationIsGitRepo.psm1 -WarningAction SilentlyContinue
@@ -20,4 +21,6 @@ Import-Module $PSScriptRoot\Get-Settings.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-Settings.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Npm-RunScript.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Pnpm-RunScript.psm1 -WarningAction SilentlyContinue
+Import-Module $PSScriptRoot\Set-CustomReadLineBehaviours.psm1 -WarningAction SilentlyContinue
+
 Import-Module $PSScriptRoot\Set-CustomAliases.psm1
