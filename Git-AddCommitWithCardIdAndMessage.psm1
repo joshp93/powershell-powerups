@@ -73,14 +73,13 @@ function Git-AddCommitWithCardIdAndMessage {
         $Prefix = ""
         $Settings = Get-Settings
         if ($Settings -and $Settings.enforceAngularConventionalCommit) {
-            $Prefixes = "build:|ci:|docs:|feat:|fix:|perf:|refactor:|style:|test:"
+            $Prefixes = "build:|chore:|ci:|docs:|feat:|fix:|perf:|refactor:|style:|test:"
             $Result = Test-ConventionalCommit -Message $Message -Prefixes $Prefixes
             if ($Result -ne $true) {
                 $Prefix = Check-ConventionalCommit $Message -Prefixes $Prefixes
             }
             else {
                 $PrefixAndMessage = $Message.Split(":")
-                $PrefixAndMessage
                 $Prefix = $PrefixAndMessage[0].Trim() + ": "
                 $Message = $PrefixAndMessage[1].Trim()
             }
