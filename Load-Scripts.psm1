@@ -1,5 +1,12 @@
 oh-my-posh init pwsh --config https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/patriksvensson.omp.json | Invoke-Expression
 
+if (Get-Command choco -ErrorAction SilentlyContinue) {
+    $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+    if (Test-Path($ChocolateyProfile)) {
+      Import-Module "$ChocolateyProfile"
+    }
+}
+
 if (Get-Command fnm -ErrorAction SilentlyContinue) {
     Write-Host "Loading fnm..." -ForegroundColor Green
     fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
