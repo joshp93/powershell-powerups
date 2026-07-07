@@ -1,9 +1,9 @@
-oh-my-posh init pwsh --config https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/patriksvensson.omp.json | Invoke-Expression
+﻿oh-my-posh init pwsh --config https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/patriksvensson.omp.json | Invoke-Expression
 
 if (Get-Command choco -ErrorAction SilentlyContinue) {
     $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
     if (Test-Path($ChocolateyProfile)) {
-      Import-Module "$ChocolateyProfile"
+        Import-Module "$ChocolateyProfile"
     }
 }
 
@@ -37,5 +37,6 @@ Import-Module $PSScriptRoot\Pnpm-RunScript.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-LocationWithFnm.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Invoke-GoTo.psm1 -WarningAction SilentlyContinue
 Import-Module $PSScriptRoot\Set-CustomReadLineBehaviours.psm1 -WarningAction SilentlyContinue
+Import-Module $PSScriptRoot\Open-CodeWithUpdate.psm1 -WarningAction SilentlyContinue
 
 Import-Module $PSScriptRoot\Set-CustomAliases.psm1

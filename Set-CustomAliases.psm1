@@ -8,6 +8,7 @@ Set-Alias -Name cm -Value Git-CheckoutRoot
 Set-Alias -Name nr -Value Npm-RunScript
 Set-Alias -Name pr -Value Pnpm-RunScript
 Set-Alias -Name go -Value Invoke-GoTo
+Set-Alias -Name cu -Value Open-CodeWithUpdate
 
 function fmlrp { Merge-LatestRootIntoThisBranch $true }
 set-alias -Name mlrp -Value fmlrp
